@@ -3,6 +3,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,9 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     TextView tvData;
+    EditText editTel;
+    EditText editName;
+    EditText editNick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         tvData = (TextView)findViewById(R.id.textView);
         Button btn = (Button)findViewById(R.id.httpTest);
+
+        editTel = (EditText)findViewById(R.id.tel);
+        editName = (EditText)findViewById(R.id.name);
+        editNick = (EditText)findViewById(R.id.nickname);
+
 
         //버튼이 클릭되면 여기 리스너로 옴
         btn.setOnClickListener(new View.OnClickListener() {
@@ -50,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("user_id", "androidTest");
-                jsonObject.accumulate("name", "yun");
+                jsonObject.accumulate("tel", editTel.getText().toString());
+                jsonObject.accumulate("name", editName.getText().toString());
+                jsonObject.accumulate("nick", editNick.getText().toString());
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -120,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            tvData.setText(result);//서버로 부터 받은 값을 출력해주는 부
+            tvData.setText(result);//서버로 부터 받은 값을 출력해주는 부분
         }
     }
 
